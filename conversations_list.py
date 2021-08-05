@@ -7,34 +7,33 @@ from slack_sdk import WebClient  # Import WebClient from Python SDK (github.com/
 """
 FUNCTIONS
 """
-def connect(api_token, endpoint):
-    # Initiate Client
+def connect(api_token):
+    """
+    Executes request via Slack SDK
+
+    :param api_token: API token associated with the request
+    :param limit: The number of records returned. 1000 is the max allowed and more than sufficient.
+    :return: Response: The json package from Slack
+    """
     client = WebClient(token=api_token)
     logger = logging.getLogger(__name__)
-    response = eval(endpoint)
+    response = client.conversations_list(limit=1000)
 
     return response
 
 
-# Refer to https://api.slack.com/methods/users.list
-# response = connect(C4SF_SLACK_API_TOKEN,'client.users_list()')
-
-
 
 def format_conversations_list(response):
-    """
-    Formats conversation list.
-
-    :param response:
-    :return:
-    """
-    # Capture slack channels
-    #response = connect(C4SF_SLACK_API_TOKEN, 'client.conversations_list(limit = 10)')
+    """ Formats conversation list and creates dataframe """
 
     conversation_list_data = pd.json_normalize(response['channels'])
 
-    # conversation_list_data['created'] = pd.to_datetime(conversation_list_data['created'], unit='s')
+    # Format timestamps
+    conversation_list_data['created'] = pd.to_datetime(conversation_list_data['created'], unit='s')
+    conversation_list_data['purpose.last_set'] = pd.to_datetime(conversation_list_data['purpose.last_set'], unit='s')
+    conversation_list_data['topic.last_set'] = pd.to_datetime(conversation_list_data['topic.last_set'], unit='s')
 
+    # Limits the columns returned to those used for analysis
     conversation_list_data = conversation_list_data[
         [
             'id'
@@ -64,18 +63,18 @@ MAIN
 """
 def main():
 
-
     C4SF_SLACK_API_TOKEN = os.getenv('SLACK_API_TOKEN')
 
     # Connect to slack and get users_list
-    response = connect(C4SF_SLACK_API_TOKEN, 'client.conversations_list(limit = 1000)')
+    response = connect(api_token=C4SF_SLACK_API_TOKEN)
+
+    # Make destination directory if it doesn't exist
+    if not os.path.exists('data'):
+        os.makedirs('data')
 
     # Format Users List and export to csv
     conversations_list_data = format_conversations_list(response)
-
-    conversations_list_data.to_csv('conversation_list_data.csv')
-
-
+    conversations_list_data.to_csv('data/conversation_list_data.csv')
 
 main()
 
