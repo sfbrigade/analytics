@@ -1,3 +1,10 @@
+"""
+This script uses the slack conversations.list endpoint to pull
+a list of all public (active or archived) channels
+
+Refer to https://api.slack.com/methods/conversations.list
+"""
+
 import os
 import logging
 import pandas as pd
