@@ -1,3 +1,10 @@
+"""
+This script uses the slack users.list endpoint to pull
+all users.
+
+Refer to https://api.slack.com/methods/users.list
+"""
+
 import os
 import logging
 import pandas as pd
@@ -7,26 +14,18 @@ from slack_sdk import WebClient  # Import WebClient from Python SDK (github.com/
 """
 FUNCTIONS
 """
-def connect(api_token, endpoint):
-    # Initiate Client
+def connect(api_token):
+    """ Executes request via Slack SDK and returns json"""
     client = WebClient(token=api_token)
     logger = logging.getLogger(__name__)
-    response = eval(endpoint)
+    response = client.users_list()
 
     return response
 
 
-
 def format_users_list(response):
-    """
-    Formats user list.
+    """ Formats conversation list and creates dataframe """
 
-    This method is required rather than json_normalize. It accounts for fields that may not be included in
-    the first row (such as profile.update, which would not return using json_normalize). This should be validated as an understanding of the data.
-
-    :param response:
-    :return:
-    """
     user_list = []
 
     for i in response["members"]:
@@ -49,24 +48,23 @@ def format_users_list(response):
     return user_list_data
 
 
-
-
 """
 MAIN
 """
 def main():
 
-
     C4SF_SLACK_API_TOKEN = os.getenv('SLACK_API_TOKEN')
 
     # Connect to slack and get users_list
-    response = connect(C4SF_SLACK_API_TOKEN, 'client.users_list()')
+    response = connect(C4SF_SLACK_API_TOKEN)
+
+    # Make destination directory if it doesn't exist
+    if not os.path.exists('data'):
+        os.makedirs('data')
 
     # Format Users List and export to csv
     user_list_data = format_users_list(response)
-
-    user_list_data.to_csv('user_list_data.csv')
-
+    user_list_data.to_csv('data/user_list_data.csv')
 
 
 
