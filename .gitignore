@@ -130,3 +130,6 @@ dmypy.json
 
 # Pycharm Stuff
 .idea/
+
+# Ignore csv files, they may contain information that should not be public
+.csv
