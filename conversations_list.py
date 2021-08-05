@@ -73,6 +73,10 @@ def main():
     # Format Users List and export to csv
     conversations_list_data = format_conversations_list(response)
 
+    # Make destination directory if it doesn't exist
+    if not os.path.exists('data'):
+        os.makedirs('data')
+
     conversations_list_data.to_csv('conversation_list_data.csv')
 
 

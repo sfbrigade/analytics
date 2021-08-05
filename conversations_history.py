@@ -132,7 +132,11 @@ def main():
         messages_data = pd.DataFrame(messages, columns = ['channel', 'type','user', 'text', 'ts'])
         messages_data['ts'] = pd.to_datetime(messages_data['ts'], unit='s')
 
-    messages_data.to_csv('conversations_history.csv')
+    # Make destination directory if it doesn't exist
+    if not os.path.exists('data'):
+        os.makedirs('data')
+
+    messages_data.to_csv('data/conversations_history.csv')
 
 main()
 
