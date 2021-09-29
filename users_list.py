@@ -16,7 +16,7 @@ FUNCTIONS
 """
 def connect(api_token):
     """ Executes request via Slack SDK and returns json"""
-    client = WebClient(token=api_token)
+    client = WebClient(token = api_token)
     logger = logging.getLogger(__name__)
     response = client.users_list()
 
