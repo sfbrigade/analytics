@@ -1,0 +1,3 @@
+python3 data_pipelines/conversations_list.py
+python3 data_pipelines/users_list.py
+python3 data_pipelines/conversations_history.py
