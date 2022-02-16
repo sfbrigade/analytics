@@ -33,7 +33,6 @@ def format_users_list(api_token):
     while tries < 10:
         try:
             #C4SF_SLACK_API_TOKEN
-            print(api_token)
             response = connect(api_token, endpoint='client.users_list(limit = 200)')
             time.sleep(delay)
             break
@@ -126,35 +125,20 @@ def format_users_list(api_token):
 MAIN
 """
 def main():
-<<<<<<< Updated upstream:data pipelines/users_list.py
-    #os.environ['SLACK_API_TOKEN'] = 'xoxb-4103768284-1861032706679-3lxTSZzXx2nrIg8qIvb1quNT'
-    SLACK_API_TOKEN="xoxb-4103768284-1861032706679-3lxTSZzXx2nrIg8qIvb1quNT"
-    C4SF_SLACK_API_TOKEN = os.getenv('SLACK_API_TOKEN')
-    print('test')
-    print(C4SF_SLACK_API_TOKEN)
+
     # Connect to slack and get users_list
-    response = connect(C4SF_SLACK_API_TOKEN)
-=======
-
-
     C4SF_SLACK_API_TOKEN = os.getenv('SLACK_API_TOKEN')
-    # print(C4SF_SLACK_API_TOKEN)
+
     # Format Users List and export to csv
     user_list_data = format_users_list(C4SF_SLACK_API_TOKEN)
->>>>>>> Stashed changes:data_pipelines/users_list.py
 
     # Make destination directory if it doesn't exist
     if not os.path.exists('data'):
         os.makedirs('data')
 
-<<<<<<< Updated upstream:data pipelines/users_list.py
     # Format Users List and export to csv
-    user_list_data = format_users_list(response)
     user_list_data.to_csv('data/user_list_data.csv')
-=======
-    user_list_data.to_csv('../data/user_list_data.csv')
     print('success')
->>>>>>> Stashed changes:data_pipelines/users_list.py
 
     
 main()
