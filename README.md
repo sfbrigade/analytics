@@ -6,7 +6,6 @@ The goal of this project is to build an understanding of member engagement and d
 
 # How to contribute
 
-- We meet every Tuesday at 5 PM PST on Slack: https://sfbrigade.slack.com/
 - You can find open issues here: https://github.com/sfbrigade/analytics
 
 
