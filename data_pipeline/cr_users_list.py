@@ -4,6 +4,7 @@ all users.
 
 Refer to https://api.slack.com/methods/users.list
 """
+# TODO, can be simplified using the users.list sdk now
 
 import os
 import logging
@@ -112,7 +113,7 @@ def format_users_list(api_token):
         
         users.extend(users_batch)
 
-        print(len(users), 'records processed')
+        print(len(users), 'users_list records processed')
 
     user_list_data = pd.DataFrame(users) 
 
@@ -137,7 +138,7 @@ def main():
         os.makedirs('data')
 
     # Format Users List and export to csv
-    user_list_data.to_csv('data/user_list_data.csv')
+    user_list_data.to_csv('../data/user_list_data.csv')
     print('success')
 
     

@@ -29,9 +29,10 @@ def connect(api_token):
     return response
 
 
-
 def format_conversations_list(response):
-    """ Formats conversation list and creates dataframe """
+    """ 
+    Formats conversation list and creates dataframe 
+    """
 
     conversation_list_data = pd.json_normalize(response['channels'])
 
@@ -65,6 +66,21 @@ def format_conversations_list(response):
 
     return conversation_list_data
 
+
+def create_conversation_list(conversations_list_data):
+    """
+    creates the csv output file for conversation_list data
+    """
+
+    # Make destination directory if it doesn't exist
+    if not os.path.exists('../data'):
+        os.makedirs('../data')
+
+    # Format Users List and export to csv
+    
+    conversations_list_data.to_csv('../data/conversation_list_data.csv')
+
+
 """
 MAIN
 """
@@ -75,13 +91,11 @@ def main():
     # Connect to slack and get users_list
     response = connect(api_token=C4SF_SLACK_API_TOKEN)
 
-    # Make destination directory if it doesn't exist
-    if not os.path.exists('../data'):
-        os.makedirs('../data')
-
-    # Format Users List and export to csv
+    # Format json package
     conversations_list_data = format_conversations_list(response)
-    conversations_list_data.to_csv('../data/conversation_list_data.csv')
+
+    # Export to file
+    create_conversation_list(conversations_list_data)
 
 main()
 
