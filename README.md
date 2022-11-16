@@ -18,12 +18,15 @@ Looking for Data Scientists
 Critical Thinkers
 
 # How to Get Started
-1. Load data
-2. Set up environmental variables to process data (contact @greg on Slack https://c4sf.me/slack for api keys).
-3. Run pipelines in the following order: 
-3a. Execute users_list.py
-3b. Execute conversations_list.py
-3c. Execute conversations_history.py
+1. Request permission from Greg to google drive that has data already available
+
+# Available Raw Data
+user_list_data -> A list of all the users in our slack community
+conversation_list_data -> A list of all channels in our slack community
+conversations_history_data -> A list of all the public messages in our slack community
+members -> A list of members and demographic information
+attendance -> A list of attendance information
+
 
 - New here? Here's the link to the project history on Notion: #Use Notion, what is best practice for catching up from 0?
 - https://www.notion.so/sfbrigade/Analytics-60a30e72aa8846649a3e2539796c8ff6
