@@ -134,3 +134,6 @@ dmypy.json
 # Ignore data files, they may contain information that should not be public
 *.csv
 *.pkl
+
+# OSX metadata
+*.DS_Store
