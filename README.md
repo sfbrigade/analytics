@@ -48,7 +48,7 @@ attendance -> A list of attendance information
 
 4.  Activate virtual environment by navigating to your local report and running:
 	```
-	source env/bin/activate
+	source venv/bin/activate
 	```
 
 5. Run requirements.txt so that you have all of the proper packages:
