@@ -132,7 +132,7 @@ def main():
                 )
 
             messages.append(messages_batch)
-            print(len(messages))
+            print(len(messages),"conversations_history records processed")
 
             # Sleep to avoid hitting rate limit (50 requests / min)
             time.sleep(1)
@@ -147,6 +147,8 @@ def main():
         os.makedirs('../data')
 
     messages_data.to_csv('../data/conversations_history_data.csv', float_format='%.4f')
+
+    print("Conversations_history processed")
 
 main()
 
